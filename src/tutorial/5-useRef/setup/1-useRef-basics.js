@@ -5,7 +5,32 @@ import React, { useEffect, useRef } from 'react';
 // target DOM nodes/elements
 
 const UseRefBasics = () => {
-  return <h2>useRef</h2>;
+  // Reference to object its made to point to [does not trigger re render]
+  const refContainer = useRef(null);
+  const divContainer = useRef(null)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(refContainer.current.value);
+    console.log(divContainer.current);
+  };
+
+  useEffect(() => {
+    console.log(refContainer.current);
+    refContainer.current.focus();
+  });
+
+  return (
+    <React.Fragment>
+      <form className='form' onSubmit={handleSubmit}>
+        <div>
+          <input type='text' ref={refContainer} />
+          <button type='submit'>Submit</button>
+        </div>
+      </form>
+      <div ref={divContainer}>Hello World</div>
+    </React.Fragment>
+  );
 };
 
 export default UseRefBasics;
